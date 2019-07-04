@@ -1,4 +1,4 @@
 package dsw.game;
 
-public class Bomb {
+public class Bomb implements MapObject {
 }

@@ -1,6 +1,6 @@
 package dsw.game;
 
-public class Field {
+public class Field implements MapObject {
     private int surroundingBombs;
 
     public Field(int surroundingBombs) {
