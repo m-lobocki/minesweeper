@@ -1,4 +1,4 @@
-package dsw.main;
+package dsw.gui;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;

@@ -1,4 +1,4 @@
-package dsw.main;
+package dsw.gui;
 
 public class MainController {
 }
