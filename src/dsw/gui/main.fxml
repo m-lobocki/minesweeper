@@ -1,8 +1,21 @@
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.layout.GridPane?>
+<?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<GridPane fx:controller="dsw.gui.MainController"
-          xmlns:fx="http://javafx.com/fxml" alignment="center" hgap="10" vgap="10">
-</GridPane>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+
+<BorderPane xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="dsw.gui.MainController">
+    <center>
+        <GridPane fx:id="gameGrid" alignment="CENTER">
+        </GridPane>
+    </center>
+    <top>
+        <HBox fx:id="difficultiesContainer" alignment="CENTER" spacing="10.0" styleClass="menu">
+            <padding>
+                <Insets bottom="10.0" top="10.0"/>
+            </padding>
+        </HBox>
+    </top>
+</BorderPane>

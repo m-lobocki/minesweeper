@@ -1,0 +1,27 @@
+.menu {
+    -fx-background-color: White;
+    -fx-border-width: 1 0 0 0;
+    -fx-border-color: LightGray;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.8), 10, 0, 0, 0);
+}
+
+.game-field {
+    -fx-background-color: #8ab92d;
+    -fx-border-radius: 0;
+    -fx-border-width: 1px;
+    -fx-border-color: #99cd32;
+    -fx-font-size: 20px;
+    -fx-text-fill: White;
+}
+
+.game-field:hover {
+    -fx-background-color: #a4d246;
+}
+
+.game-field:pressed {
+    -fx-background-color: #7ba428;
+}
+
+.greeting {
+    -fx-font-size: 16px;
+}
