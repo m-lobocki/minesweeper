@@ -34,4 +34,3 @@ public class MinesweeperGame implements Minesweeper {
         }
     }
 }
-
