@@ -4,7 +4,7 @@ import Minesweeper.java;
 
 public class MinesweeperGame implements Minesweeper {
 
-    Table table;
+    private Table table;
 
     void start(Difficulty difficulty){
         switch(difficulty){
@@ -22,7 +22,21 @@ public class MinesweeperGame implements Minesweeper {
 
     void dig(int x, int y){
         if(this.table.fields[x][y] instanceof Bomb) this.gameOver(x,y);
-        else this.table.fields[x][y].visible = true;
+        else {
+            this.table.fields[x][y].visible = true;
+            if(this.table.fields[x][y].getSurroundingBombs() === 0){
+                this.setNeighborsVisible(x,y)
+            }
+            this.checkForEmptyFields(x,y);
+        }
+    }
+
+    void checkForEmptyFields(int x, int y){
+
+    }
+    // TODO
+    void setNeighborsVisible(int x, int y){
+        if(this.table.draftedTable[x][y]  && this.table.draftedTable[x][y])
     }
 
     void gameOver(int x, int y){

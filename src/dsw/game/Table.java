@@ -2,22 +2,22 @@ package dsw.game;
 import java.lang.Math;
 public class Table implements MapObject {
     private int width, height, bombsAmount;
-/////////////////////////WROK IN PROGRESS/////////////////////////
+    /////////////////////////WROK IN PROGRESS/////////////////////////
+    public int[][] draftedTable;
+    public MapObject[][] fields[][] = null;
     public Table(int width, int height, int bombsAmount){
         this.height = height;
         this.width = width;
         this.bombsAmount = bombsAmount;
 
-        public MapObject[][] fields[width][height] = null;
+        draftedTable[width+2][height+2] = this.getRandomTable();
         this.draftTable();
     }
 
     void draftTable(){
-        int draftTab[][] = this.getRandomTable();
-
         for(int i = 0; i < this.width; i++){
             for(int j = 0; j < this.height; j++) {
-                this.fields[i][j] = draftTab[i+1][j+1] === 1 ? new Bomb() : new Field();
+                this.fields[i][j] = draftedTable[i+1][j+1] === 1 ? new Bomb() : new Field();
             }
         }
 
@@ -36,23 +36,26 @@ public class Table implements MapObject {
                     table[randX][randY] = 1;
                     unique = true;
                 }
-
             }
         }
         return table;
     }
 
     void setFieldsValues() {
-        for(int i = 0; i < this.width; i++){
-            for(int j = 0; j<this.height; j++) {
-                if(this.table.fields[i][j] instanceof Field)
-                if(i === 0){
-                    if(j === 0){
-                        int count = 0;
-                        if(this.table.fields[i+1][j] instanceof Bomb) count++;
-                        if(this.table.fields[i+1][j+1] instanceof Bomb) count++;
-                        if(this.table.fields[i][j+1] instanceof Bomb) count++;
-                    }else if(j === this.width - 1)
+        for(int i = 1; i <= this.width; i++){
+            for(int j = 1; j<=this.height; j++) {
+                if (this.fields[i - 1][j - 1] instanceof Field) {
+                    int count = 0;
+                    if (this.draftedTable[i + 1][j] === 1) count++;
+                    if (this.draftedTable[i + 1][j + 1] === 1) count++;
+                    if (this.draftedTable[i + 1][j - 1] === 1) count++;
+                    if (this.draftedTable[i - 1][j]  === 1) count++;
+                    if (this.draftedTable[i - 1][j + 1]  === 1) count++;
+                    if (this.draftedTable[i - 1][j - 1]  === 1) count++;
+                    if (this.draftedTable[i][j + 1]  === 1) count++;
+                    if (this.draftedTable[i][j - 1]  === 1) count++;
+
+                    this.fields[i - 1][j - 1].setSurroundingBombs(count);
                 }
             }
         }
