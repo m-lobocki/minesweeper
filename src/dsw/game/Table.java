@@ -3,13 +3,14 @@ import java.lang.Math;
 public class Table {
     private int width, height, bombsAmount;
     private int[][] draftedTable;
-    private MapObject[][] map = null;
+    private MapObject[][] map;
     private int[][] vectors = new int[][]{{-1, -1}, {-1, 0}, {-1, 1}, {0, -1}, {0, 1}, {1, -1}, {1, 0}, {1, 1}};
 
     public Table(int width, int height, int bombsAmount){
         this.height = height;
         this.width = width;
         this.bombsAmount = bombsAmount;
+        this.map = new MapObject[width][height];
 
         draftedTable = this.getRandomTable();
         this.draftTable();

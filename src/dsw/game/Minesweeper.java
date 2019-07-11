@@ -1,6 +1,8 @@
 package dsw.game;
 
 public interface Minesweeper {
-    void start(Difficulty difficulty);
+    MapObject[][] start(Difficulty difficulty);
     void dig(int x, int y);
+    boolean checkWin();
+    boolean checkLose();
 }

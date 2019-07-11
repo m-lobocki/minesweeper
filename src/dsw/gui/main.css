@@ -18,8 +18,12 @@
     -fx-background-color: #a4d246;
 }
 
-.game-field:pressed {
+.game-field:pressed, .game-field--visible {
     -fx-background-color: #7ba428;
+}
+
+.game-field--bomb {
+    -fx-text-fill: Red;
 }
 
 .greeting {

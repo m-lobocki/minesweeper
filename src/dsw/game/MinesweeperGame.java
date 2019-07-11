@@ -2,20 +2,25 @@ package dsw.game;
 
 
 public class MinesweeperGame implements Minesweeper {
-
     private Table table;
-    public void start(Difficulty difficulty){
+    private boolean isLost;
+
+    public MapObject[][] start(Difficulty difficulty){
         switch(difficulty){
             case Easy: {
                 table = new Table(8,8,15);
+                break;
             }
             case Medium: {
                 table = new Table(15,15,40);
+                break;
             }
             case Hard: {
                 table = new Table(30,20,150);
+                break;
             }
         }
+        return table.getMap();
     }
 
     public void dig(int x, int y){
@@ -28,13 +33,11 @@ public class MinesweeperGame implements Minesweeper {
             if(field.getSurroundingBombs() == 0){
                 this.table.revealEmptyFields(x,y);
             }
-            if(this.checkWin()) {
-                // TODO mlobocki
-            }
         }
     }
 
     private void gameOver(int x, int y){
+        isLost = true;
         Bomb bomb = (Bomb)this.table.getMap()[x][y];
         bomb.setBombExploded(true);
         for(int i = 0; i < this.table.getWidth(); i++){
@@ -54,5 +57,9 @@ public class MinesweeperGame implements Minesweeper {
         }
         if(visibleFieldsAmount == (tableSize - this.table.getBombsAmount())) return true;
         return false;
+    }
+
+    public boolean checkLose() {
+        return isLost;
     }
 }

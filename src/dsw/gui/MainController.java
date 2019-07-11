@@ -11,13 +11,7 @@ import javafx.scene.layout.*;
 public class MainController {
     private ToggleGroup difficultiesGroup = new ToggleGroup();
     private Minesweeper game = new MinesweeperGame();
-
-    //fixme: test data
-    private MapObject[][] objects = new MapObject[][]{
-            {new Bomb(), new Bomb(), new Field(1)},
-            {new Field(2), new Field(3), new Field(2)},
-            {new Field(0), new Field(1), new Bomb()}
-    };
+    private MapObject[][] objects;
 
     @FXML
     public GridPane gameGrid;
@@ -45,8 +39,8 @@ public class MainController {
         }
         difficultiesGroup.selectedToggleProperty().addListener((observable, oldValue, newValue) -> {
             Difficulty selectedDifficulty = (Difficulty) newValue.getUserData();
-            resetGui();
-            startGame(selectedDifficulty);
+            objects = game.start(selectedDifficulty);
+            refreshGui();
         });
     }
 
@@ -57,24 +51,42 @@ public class MainController {
         return option;
     }
 
-    private void resetGui() {
-        gameGrid.getChildren().clear();
+    private void mapObjectClicked(ActionEvent event) {
+        Control sourceControl = (Control) event.getSource();
+        MapObjectData objectData = (MapObjectData) sourceControl.getUserData();
+        game.dig(objectData.getColumn(), objectData.getRow());
+        if (game.checkLose()) {
+            // todo: on lose
+        }
+        if (game.checkWin()) {
+            // todo: on win
+        }
+        refreshGui();
     }
 
-    private void startGame(Difficulty difficulty) {
-        game.start(difficulty);
+    private void refreshGui() {
+        gameGrid.getChildren().clear();
         for (int column = 0; column < objects.length; column++) {
             for (int row = 0; row < objects.length; row++) {
                 Button mapObjectControl = new Button();
                 mapObjectControl.setOnAction(this::mapObjectClicked);
+                mapObjectControl.setUserData(new MapObjectData(column, row));
+                if (objects[column][row].getVisible()) {
+                    mapObjectControl.getStyleClass().add("game-field--visible");
+                    if (objects[column][row] instanceof Field) {
+                        Field field = (Field) objects[column][row];
+                        int surroundingBombs = field.getSurroundingBombs();
+                        if (surroundingBombs != 0) {
+                            mapObjectControl.setText(String.valueOf(surroundingBombs));
+                        }
+                    } else {
+                        mapObjectControl.setText("*");
+                        mapObjectControl.getStyleClass().add("game-field--bomb");
+                    }
+                }
                 addControlToGameGrid(mapObjectControl, column, row);
             }
         }
-    }
-
-    private void mapObjectClicked(ActionEvent event) {
-        Control sourceControl = (Control)event.getSource();
-        //todo: click action
     }
 
     private void addControlToGameGrid(Control control, int column, int row) {
