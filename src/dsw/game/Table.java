@@ -3,8 +3,8 @@ import java.lang.Math;
 public class Table {
     private int width, height, bombsAmount;
     /////////////////////////WROK IN PROGRESS/////////////////////////
-    public int[][] draftedTable;
-    public MapObject[][] fields = null;
+    private int[][] draftedTable;
+    private MapObject[][] map = null;
 
     public Table(int width, int height, int bombsAmount){
         this.height = height;
@@ -18,7 +18,7 @@ public class Table {
     void draftTable(){
         for(int i = 0; i < this.width; i++){
             for(int j = 0; j < this.height; j++) {
-                this.fields[i][j] = draftedTable[i+1][j+1] == 1 ? new Bomb() : new Field();
+                this.map[i][j] = draftedTable[i+1][j+1] == 1 ? new Bomb() : new Field();
             }
         }
 
@@ -45,7 +45,7 @@ public class Table {
     void setFieldsValues() {
         for(int i = 1; i <= this.width; i++){
             for(int j = 1; j<=this.height; j++) {
-                if (this.fields[i - 1][j - 1] instanceof Field) {
+                if (this.map[i - 1][j - 1] instanceof Field) {
                     int count = 0;
                     if (this.draftedTable[i + 1][j] == 1) count++;
                     if (this.draftedTable[i + 1][j + 1] == 1) count++;
@@ -55,7 +55,7 @@ public class Table {
                     if (this.draftedTable[i - 1][j - 1]  == 1) count++;
                     if (this.draftedTable[i][j + 1]  == 1) count++;
                     if (this.draftedTable[i][j - 1]  == 1) count++;
-                    Field field = (Field)this.fields[i-1][j-1];
+                    Field field = (Field)this.map[i-1][j-1];
                     field.setSurroundingBombs(count);
                 }
             }
@@ -67,5 +67,9 @@ public class Table {
     }
     public int getHeight(){
         return this.height;
+    }
+
+    public MapObject[][] getMap() {
+        return this.map;
     }
 }
