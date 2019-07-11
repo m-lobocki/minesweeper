@@ -22,33 +22,22 @@ public class MinesweeperGame implements Minesweeper {
     }
 
     public void dig(int x, int y){
-        if(this.table.fields[x][y] instanceof Bomb) this.gameOver(x,y);
+        if(this.table.getMap()[x][y] instanceof Bomb) this.gameOver(x,y);
         else {
-            this.table.fields[x][y].setVisible(true);
-            Field field = (Field)this.table.fields[x][y];
+            this.table.getMap()[x][y].setVisible(true);
+            Field field = (Field)this.table.getMap()[x][y];
             if(field.getSurroundingBombs() == 0){
-                this.setNeighborsVisible(x,y);
+                this.table.revealEmptyFields(x,y);
             }
-            this.checkForEmptyFields(x,y);
         }
     }
 
-    void checkForEmptyFields(int x, int y){
-
-    }
-    // TODO
-    void setNeighborsVisible(int x, int y){
-//        if(this.table.draftedTable[x][y] && this.table.draftedTable[x][y+1]) {
-//
-//        }
-    }
-
     void gameOver(int x, int y){
-        Bomb bomb = (Bomb)this.table.fields[x][y];
+        Bomb bomb = (Bomb)this.table.getMap()[x][y];
         bomb.setBombExploded(true);
         for(int i = 0; i < this.table.getWidth(); i++){
             for(int j = 0; j<this.table.getHeight(); j++) {
-                this.table.fields[i][j].setVisible(true);
+                this.table.getMap()[i][j].setVisible(true);
             }
         }
     }

@@ -2,9 +2,9 @@ package dsw.game;
 import java.lang.Math;
 public class Table {
     private int width, height, bombsAmount;
-    /////////////////////////WROK IN PROGRESS/////////////////////////
     private int[][] draftedTable;
     private MapObject[][] map = null;
+    private int[][] vectors = new int[][]{{-1, -1}, {-1, 0}, {-1, 1}, {0, -1}, {0, 1}, {1, -1}, {1, 0}, {1, 1}};
 
     public Table(int width, int height, int bombsAmount){
         this.height = height;
@@ -47,18 +47,25 @@ public class Table {
             for(int j = 1; j<=this.height; j++) {
                 if (this.map[i - 1][j - 1] instanceof Field) {
                     int count = 0;
-                    if (this.draftedTable[i + 1][j] == 1) count++;
-                    if (this.draftedTable[i + 1][j + 1] == 1) count++;
-                    if (this.draftedTable[i + 1][j - 1] == 1) count++;
-                    if (this.draftedTable[i - 1][j]  == 1) count++;
-                    if (this.draftedTable[i - 1][j + 1]  == 1) count++;
-                    if (this.draftedTable[i - 1][j - 1]  == 1) count++;
-                    if (this.draftedTable[i][j + 1]  == 1) count++;
-                    if (this.draftedTable[i][j - 1]  == 1) count++;
+                    for (int[] vector : vectors) {
+                        if (this.draftedTable[i + vector[0]][j + vector[1]] == 1) {
+                            count++;
+                        }
+                    }
                     Field field = (Field)this.map[i-1][j-1];
                     field.setSurroundingBombs(count);
                 }
             }
+        }
+    }
+
+    public void revealEmptyFields(int x, int y){
+        for (int[] vector : vectors) {
+            Field field = (Field)this.map[x + vector[0]][y + vector[1]];
+            if(field.getSurroundingBombs() == 0 && !field.getVisible()){
+                this.revealEmptyFields(x + vector[0], y + vector[1]);
+            }
+            this.map[x + vector[0]][y + vector[1]].setVisible(true);
         }
     }
 
