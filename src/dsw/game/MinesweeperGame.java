@@ -4,9 +4,6 @@ package dsw.game;
 public class MinesweeperGame implements Minesweeper {
 
     private Table table;
-    public int getBombsAmount(){
-        return 1;
-    }
     public void start(Difficulty difficulty){
         switch(difficulty){
             case Easy: {
