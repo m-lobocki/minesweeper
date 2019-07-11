@@ -22,17 +22,22 @@ public class MinesweeperGame implements Minesweeper {
     }
 
     public void dig(int x, int y){
-        if(this.table.getMap()[x][y] instanceof Bomb) this.gameOver(x,y);
+        if(this.table.getMap()[x][y] instanceof Bomb) {
+            this.gameOver(x,y);
+        }
         else {
             this.table.getMap()[x][y].setVisible(true);
             Field field = (Field)this.table.getMap()[x][y];
             if(field.getSurroundingBombs() == 0){
                 this.table.revealEmptyFields(x,y);
             }
+            if(this.checkWin()) {
+                // TODO mlobocki
+            }
         }
     }
 
-    void gameOver(int x, int y){
+    private void gameOver(int x, int y){
         Bomb bomb = (Bomb)this.table.getMap()[x][y];
         bomb.setBombExploded(true);
         for(int i = 0; i < this.table.getWidth(); i++){
@@ -40,5 +45,17 @@ public class MinesweeperGame implements Minesweeper {
                 this.table.getMap()[i][j].setVisible(true);
             }
         }
+    }
+
+    public boolean checkWin(){
+        int tableSize = this.table.getHeight() * this.table.getWidth();
+        int visibleFieldsAmount = 0;
+        for(int i = 0; i < this.table.getWidth(); i++){
+            for(int j = 0; j < this.table.getHeight(); j++) {
+                if(this.table.getMap()[i][j].getVisible()) visibleFieldsAmount++;
+            }
+        }
+        if(visibleFieldsAmount == (tableSize - this.table.getBombsAmount())) return true;
+        return false;
     }
 }

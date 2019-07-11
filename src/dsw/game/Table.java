@@ -79,4 +79,8 @@ public class Table {
     public MapObject[][] getMap() {
         return this.map;
     }
+
+    public int getBombsAmount(){
+        return this.bombsAmount;
+    }
 }
