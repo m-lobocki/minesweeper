@@ -1,12 +1,13 @@
 package dsw.game;
 
-import Minesweeper.java;
 
 public class MinesweeperGame implements Minesweeper {
 
     private Table table;
-
-    void start(Difficulty difficulty){
+    public int getBombsAmount(){
+        return 1;
+    }
+    public void start(Difficulty difficulty){
         switch(difficulty){
             case Easy: {
                 table = new Table(8,8,15);
@@ -20,12 +21,13 @@ public class MinesweeperGame implements Minesweeper {
         }
     }
 
-    void dig(int x, int y){
+    public void dig(int x, int y){
         if(this.table.fields[x][y] instanceof Bomb) this.gameOver(x,y);
         else {
-            this.table.fields[x][y].visible = true;
-            if(this.table.fields[x][y].getSurroundingBombs() === 0){
-                this.setNeighborsVisible(x,y)
+            this.table.fields[x][y].setVisible(true);
+            Field field = (Field)this.table.fields[x][y];
+            if(field.getSurroundingBombs() == 0){
+                this.setNeighborsVisible(x,y);
             }
             this.checkForEmptyFields(x,y);
         }
@@ -36,14 +38,17 @@ public class MinesweeperGame implements Minesweeper {
     }
     // TODO
     void setNeighborsVisible(int x, int y){
-        if(this.table.draftedTable[x][y]  && this.table.draftedTable[x][y])
+//        if(this.table.draftedTable[x][y] && this.table.draftedTable[x][y+1]) {
+//
+//        }
     }
 
     void gameOver(int x, int y){
-        this.table.fields[x][y].bombExploded = true;
-        for(int i = 0; i < this.table.width; i++){
-            for(int j = 0; j<this.table.height; j++) {
-                this.table.fields[i][j].visible = true;
+        Bomb bomb = (Bomb)this.table.fields[x][y];
+        bomb.setBombExploded(true);
+        for(int i = 0; i < this.table.getWidth(); i++){
+            for(int j = 0; j<this.table.getHeight(); j++) {
+                this.table.fields[i][j].setVisible(true);
             }
         }
     }

@@ -1,5 +1,13 @@
 package dsw.game;
 
-public class Bomb implements MapObject {
-    boolean bombExploded = false;
+public class Bomb extends MapObject {
+    private boolean bombExploded = false;
+
+    public void setBombExploded(boolean exploded) {
+        this.bombExploded = exploded;
+    }
+
+    public boolean getBombExploded() {
+        return this.bombExploded;
+    }
 }
