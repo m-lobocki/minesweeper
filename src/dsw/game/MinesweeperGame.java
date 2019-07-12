@@ -8,15 +8,15 @@ public class MinesweeperGame implements Minesweeper {
     public MapObject[][] start(Difficulty difficulty){
         switch(difficulty){
             case Easy: {
-                table = new Table(8,8,15);
+                table = new Table(10,10,12);
                 break;
             }
             case Medium: {
-                table = new Table(15,15,40);
+                table = new Table(16,16,35);
                 break;
             }
             case Hard: {
-                table = new Table(30,20,150);
+                table = new Table(30,20,80);
                 break;
             }
         }
@@ -61,5 +61,13 @@ public class MinesweeperGame implements Minesweeper {
 
     public boolean checkLose() {
         return isLost;
+    }
+
+    public int getMapWidth(){
+        return this.table.getWidth();
+    }
+
+    public int getMapHeight(){
+        return this.table.getHeight();
     }
 }

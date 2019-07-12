@@ -62,11 +62,17 @@ public class Table {
 
     public void revealEmptyFields(int x, int y){
         for (int[] vector : vectors) {
-            Field field = (Field)this.map[x + vector[0]][y + vector[1]];
-            if(field.getSurroundingBombs() == 0 && !field.getVisible()){
-                this.revealEmptyFields(x + vector[0], y + vector[1]);
+            if (x + vector[0] >= 0 && x + vector[0] < this.width && y + vector[1] >= 0 && y + vector[1] < this.height) {
+                Field field = (Field) this.map[x + vector[0]][y + vector[1]];
+                if (field.getSurroundingBombs() == 0 && !field.getVisible()) {
+
+                    this.map[x + vector[0]][y + vector[1]].setVisible(true);
+                    this.revealEmptyFields(x + vector[0], y + vector[1]);
+
+                } else {
+                    this.map[x + vector[0]][y + vector[1]].setVisible(true);
+                }
             }
-            this.map[x + vector[0]][y + vector[1]].setVisible(true);
         }
     }
 
