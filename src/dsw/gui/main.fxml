@@ -2,14 +2,16 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
-
+<?import javafx.scene.layout.TilePane?>
+<?import javafx.scene.layout.VBox?>
 <BorderPane xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="dsw.gui.MainController">
     <center>
-        <GridPane fx:id="gameGrid" alignment="CENTER">
-        </GridPane>
+        <VBox fillWidth="false">
+            <TilePane fx:id="gameGrid" alignment="CENTER">
+            </TilePane>
+        </VBox>
     </center>
     <top>
         <HBox fx:id="difficultiesContainer" alignment="CENTER" spacing="10.0" styleClass="menu">

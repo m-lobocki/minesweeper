@@ -10,7 +10,7 @@
     -fx-border-radius: 0;
     -fx-border-width: 1px;
     -fx-border-color: #99cd32;
-    -fx-font-size: 20px;
+    -fx-font-size: 15px;
     -fx-text-fill: White;
 }
 
@@ -19,11 +19,32 @@
 }
 
 .game-field:pressed, .game-field--visible {
-    -fx-background-color: #7ba428;
+    -fx-background-color: #b7dc75;
+    -fx-border-color: #c2dd8d;
+}
+
+.game-field--1 {
+    -fx-text-fill: Blue;
+}
+
+.game-field--2 {
+    -fx-text-fill: Green;
+}
+
+.game-field--3 {
+    -fx-text-fill: Red;
+}
+
+.game-field--4, .game-field--5, .game-field--6, .game-field--7, .game-field--8 {
+    -fx-text-fill: DarkViolet;
 }
 
 .game-field--bomb {
-    -fx-text-fill: Red;
+    -fx-background-color: #fff96b;
+    -fx-background-image: url('mine.png');
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+    -fx-background-size: 15px 15px;
 }
 
 .greeting {
