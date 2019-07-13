@@ -6,6 +6,7 @@ public class MinesweeperGame implements Minesweeper {
     private boolean isLost;
 
     public MapObject[][] start(Difficulty difficulty){
+        isLost = false;
         switch(difficulty){
             case Easy: {
                 table = new Table(10,10,12);
