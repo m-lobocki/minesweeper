@@ -39,14 +39,22 @@
     -fx-text-fill: DarkViolet;
 }
 
-.game-field--bomb {
-    -fx-background-color: #fff96b;
-    -fx-background-image: url('mine.png');
+.game-field--bomb, .game-field--flag {
     -fx-background-repeat: no-repeat;
     -fx-background-position: center;
     -fx-background-size: 15px 15px;
 }
 
+.game-field--bomb {
+    -fx-background-color: #ff786e;
+    -fx-background-image: url('mine.png');
+}
+
+.game-field--flag {
+    -fx-background-image: url('mine.png');
+}
+
 .greeting {
     -fx-font-size: 16px;
+    -fx-padding: 100px 50px;
 }
