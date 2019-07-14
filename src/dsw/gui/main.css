@@ -51,10 +51,14 @@
 }
 
 .game-field--flag {
-    -fx-background-image: url('mine.png');
+    -fx-background-image: url('flag.png');
 }
 
 .greeting {
     -fx-font-size: 16px;
     -fx-padding: 100px 50px;
+}
+
+.restart-button {
+    -fx-start-margin: 50px ;
 }

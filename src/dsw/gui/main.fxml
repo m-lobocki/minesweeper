@@ -5,6 +5,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.TilePane?>
 <?import javafx.scene.layout.VBox?>
+
 <BorderPane fx:id="rootContainer" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="dsw.gui.MainController">
     <center>
@@ -14,7 +15,7 @@
         </VBox>
     </center>
     <top>
-        <HBox fx:id="difficultiesContainer" alignment="CENTER" spacing="10.0" styleClass="menu">
+        <HBox fx:id="menuContainer" alignment="CENTER" spacing="10.0" styleClass="menu">
             <padding>
                 <Insets bottom="10.0" top="10.0"/>
             </padding>
