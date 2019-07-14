@@ -75,8 +75,8 @@ public class MainController {
         int mapHeight = game.getMapHeight();
         gameGrid.setPrefColumns(mapWidth);
         gameGrid.setPrefRows(mapHeight);
-        for (int column = 0; column < mapWidth; column++) {
-            for (int row = 0; row < mapHeight; row++) {
+        for (int row = 0; row < mapHeight; row++) {
+            for (int column = 0; column < mapWidth; column++) {
                 Button mapObjectControl = new Button();
                 mapObjectControl.setOnMouseClicked(this::mapObjectClicked);
                 mapObjectControl.setUserData(new MapObjectData(column, row));
