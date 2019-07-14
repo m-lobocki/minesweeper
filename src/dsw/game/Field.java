@@ -1,11 +1,7 @@
 package dsw.game;
 
-public class Field implements MapObject {
+public class Field extends MapObject {
     private int surroundingBombs;
-
-    public Field(int surroundingBombs) {
-        this.surroundingBombs = surroundingBombs;
-    }
 
     public int getSurroundingBombs() {
         return surroundingBombs;
