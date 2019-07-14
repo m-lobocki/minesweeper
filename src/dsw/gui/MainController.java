@@ -20,6 +20,7 @@ public class MainController {
     private Minesweeper game = new MinesweeperGame();
     private MapObject[][] objects;
     private boolean[][] flags;
+    private Button restartButton;
 
     @FXML
     public BorderPane rootContainer;
@@ -28,12 +29,12 @@ public class MainController {
     public TilePane gameGrid;
 
     @FXML
-    public HBox difficultiesContainer;
+    public HBox menuContainer;
 
     @FXML
     protected void initialize() {
         displayGreeting();
-        setUpDifficultiesPane();
+        setUpMenuPane();
     }
 
     private void displayGreeting() {
@@ -43,15 +44,17 @@ public class MainController {
         rootContainer.setMaxWidth(INITIAL_WINDOW_WIDTH);
     }
 
-    private void setUpDifficultiesPane() {
-        ObservableList<Node> difficultyPaneChildren = difficultiesContainer.getChildren();
+    private void setUpMenuPane() {
+        ObservableList<Node> menuContainerChildren = menuContainer.getChildren();
         for (Difficulty difficulty : Difficulty.values()) {
             RadioButton option = createDifficultyOption(difficulty);
-            difficultyPaneChildren.add(option);
+            menuContainerChildren.add(option);
         }
+        addRestartButton();
         difficultiesGroup.selectedToggleProperty().addListener((observable, oldValue, newValue) -> {
             Difficulty selectedDifficulty = (Difficulty) newValue.getUserData();
             startGame(selectedDifficulty);
+            restartButton.setDisable(false);
         });
     }
 
@@ -67,6 +70,14 @@ public class MainController {
         flags = new boolean[game.getMapWidth()][game.getMapHeight()];
         refreshGui();
         centerScreen();
+    }
+
+    private void addRestartButton() {
+        restartButton = new Button("Reset");
+        restartButton.getStyleClass().add("restart-button");
+        restartButton.setDisable(true);
+        restartButton.setOnAction(event -> startGame((Difficulty) difficultiesGroup.getSelectedToggle().getUserData()));
+        menuContainer.getChildren().add(restartButton);
     }
 
     private void refreshGui() {
@@ -88,10 +99,6 @@ public class MainController {
                 if (currentMapObject.getVisible()) {
                     styleVisibleMapObject(mapObjectControl, currentMapObject);
                 }
-                //FIXME: bombs are visible while work in progress
-                if (currentMapObject instanceof Bomb) {
-                    mapObjectControl.setText("*");
-                }
                 addControlToGameGrid(mapObjectControl);
             }
         }
@@ -109,6 +116,13 @@ public class MainController {
             toggleFlag(sender, objectData);
         }
         refreshGui();
+
+        if (game.checkLose()) {
+            showFinishedGameAlert("Oops", "You have lost!");
+        }
+        if (game.checkWin()) {
+            showFinishedGameAlert("Congratulations", "You have won!");
+        }
     }
 
     private void styleVisibleMapObject(Labeled mapObjectControl, MapObject mapObject) {
@@ -149,12 +163,6 @@ public class MainController {
         int row = objectData.getRow();
         game.dig(column, row);
         flags[column][row] = false;
-        if (game.checkLose()) {
-            showFinishedGameAlert("You have lost! Do you want to restart?", ButtonType.YES, ButtonType.YES, ButtonType.NO);
-        }
-        if (game.checkWin()) {
-            showFinishedGameAlert("You have won!", ButtonType.OK, ButtonType.OK);
-        }
     }
 
     private void toggleFlag(Control mapObjectControl, MapObjectData objectData) {
@@ -168,10 +176,9 @@ public class MainController {
         }
     }
 
-    private void showFinishedGameAlert(String message, ButtonType restartingButton, ButtonType... buttonTypes) {
-        Alert alert = new Alert(Alert.AlertType.NONE, message, buttonTypes);
-        alert.showAndWait()
-                .filter(response -> response == restartingButton)
-                .ifPresent(response -> startGame((Difficulty) difficultiesGroup.getSelectedToggle().getUserData()));
+    private void showFinishedGameAlert(String title, String message) {
+        Alert alert = new Alert(Alert.AlertType.NONE, message, ButtonType.OK);
+        alert.setTitle(title);
+        alert.showAndWait();
     }
 }
