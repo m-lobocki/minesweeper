@@ -9,15 +9,15 @@ public class MinesweeperGame implements Minesweeper {
         isLost = false;
         switch(difficulty){
             case Easy: {
-                table = new Table(10,10,12);
+                table = new Table(10,10,15);
                 break;
             }
             case Medium: {
-                table = new Table(16,16,35);
+                table = new Table(16,16,45);
                 break;
             }
             case Hard: {
-                table = new Table(30,20,80);
+                table = new Table(30,20,140);
                 break;
             }
         }
